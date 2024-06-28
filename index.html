@@ -1,35 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Salma & Adi D-Day Countdown</title>
-</head>
-<body>
-    <div class="body">
-        <h1>Salma & Adi Meetup Day Countdown</h1>
-        <div class="container">
-            <div class="card">
-                <p id="days">00</p>
-                <span>Days</span>
-            </div>
-            <div class="card">
-                <p id="hours">00</p>
-                <span>Hours</span>
-            </div>
-            <div class="card">
-                <p id="minutes">00</p>
-                <span>Minutes</span>
-            </div>
-            <div class="card">
-                <p id="seconds">00</p>
-                <span>Seconds</span>
-            </div>
-        </div>
-    </div>
 
-    <script src="./main.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Interaktif</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    .interactive-button {
+      padding: 20px 40px;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .interactive-button:hover {
+      background-color: #0056b3;
+      transform: scale(1.1);
+    }
+    
+    .animated-text-container, .gif-container {
+      text-align: center;
+      margin-top: 30px;
+      opacity: 0;
+      display: none;
+    }
+    
+    .gif {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .fade-in {
+      animation: fade-in 2s forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <button class="interactive-button" onclick="showPageTwo()">Coba Klik Tombol Ini</button>
+  </div>
+
+  <div class="animated-text-container fade-in" id="pageTwo">
+    <p id="sentence1"></p>
+    <p id="sentence2"></p>
+    <p id="sentence3"></p>
+  </div>
+
+  <div class="gif-container fade-in" id="gifContainer">
+    <img src="https://media.giphy.com/media/QPThyMR3U76LQhdpYJ/giphy.gif" alt="Animated GIF" class="gif">
+  </div>
+
+  <script>
+    function showPageTwo() {
+      document.querySelector('.interactive-button').style.display = 'none';
+      document.querySelector('.animated-text-container').style.display = 'block';
+      document.querySelector('.gif-container').style.display = 'block';
+      document.querySelector('.animated-text-container').classList.add('fade-in');
+      document.querySelector('.gif-container').classList.add('fade-in');
+      animateText();
+    }
+
+    function animateText() {
+      const sentences = [
+        "Heyyo! Gak kerasa udah 1 bulan lebih ayang di jepang",
+        "Jaga kesehatan kamu, lakukan yang terbaik, dan yang terpenting jaga diri mu baik - baik ya disitu!",
+        "Tetap semangat ya jalanin hari - hari nya! I will try my best to support you ayang!"
+      ];
+
+      let index = 0;
+      let currentSentence = "";
+      let currentSentenceElement = null;
+
+      function addLetter() {
+        currentSentence += sentences[index][currentSentence.length];
+        currentSentenceElement.textContent = currentSentence;
+
+        if (currentSentence.length === sentences[index].length) {
+          index++;
+          if (index === sentences.length) return;
+          currentSentence = "";
+          currentSentenceElement = document.getElementById(`sentence${index + 1}`);
+        }
+        setTimeout(addLetter, 100);
+      }
+
+      currentSentenceElement = document.getElementById('sentence1');
+      addLetter();
+    }
+  </script>
 </body>
+
 </html>
